@@ -15,7 +15,7 @@ class Play extends Phaser.Scene {
         this.load.image('greenCar', './assets/green_car.png');
 
         this.load.image('rocket', './assets/new_rocket.png');
-        this.load.image('dirtRoad', './assets/test.png');
+        this.load.image('dirtRoad', './assets/dirt_road.png');
         //this.load.image('starfield', './assets/starfield.png');
 
         // load spritesheet
