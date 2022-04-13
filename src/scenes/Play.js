@@ -14,7 +14,7 @@ class Play extends Phaser.Scene {
         this.load.image('redCar', './assets/red_car.png');
         this.load.image('greenCar', './assets/green_car.png');
 
-        this.load.image('rocket', './assets/new_rocket.png');
+        this.load.image('rocket', './assets/best_missile.png');
         this.load.image('dirtRoad', './assets/dirt_road.png');
         //this.load.image('starfield', './assets/starfield.png');
 
@@ -74,8 +74,8 @@ class Play extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            backgroundColor: '#F3B141', // background color for the score box
+            color: '#4a4e69', // background color for the ui box
             align: 'right',
             padding: {
                 top: 5,
