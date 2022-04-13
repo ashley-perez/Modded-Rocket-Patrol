@@ -108,6 +108,11 @@ class Play extends Phaser.Scene {
 
     update() {
 
+        // when the game is over stop updating the scrolling background
+        if (this.gameOver) {
+            this.dirtRoad.tilePositionX = 0;
+        }
+
         // check key input for restart 
         // makeing sure the game is over and checking if R has been pressed
         if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyR)) {
