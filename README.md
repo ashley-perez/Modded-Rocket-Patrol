@@ -1,8 +1,6 @@
-## Rocket Patrol
+## Rocket Patrol with some mods!
 ### Ashley Perez - Spring Quarter 2022
 
-Recreating/clone of retro game Rocket Patrol for CMPM 120. 
+Originally recreated the retro game Rocket Patrol for CMPM 120 but there has been visual changes and some other stuff.
 
-Assets and code are by Nathan Altice.
-
-This assignment was mainly about going through the code and understanding how Phaser (our Javascript game library) works.
+Tweaked code created by Nathan Altice.
