@@ -16,9 +16,8 @@ class Play extends Phaser.Scene {
 
         this.load.image('rocket', './assets/best_missile.png');
         this.load.image('dirtRoad', './assets/dirt_road.png');
-        //this.load.image('starfield', './assets/starfield.png');
 
-        // load spritesheet
+        // load spritesheet for the explosion
         // 3 parameters for spritesheet: key string to identify the asset, URL of its location, frame configuration
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
 
@@ -32,18 +31,10 @@ class Play extends Phaser.Scene {
         this.dirtRoad = this.add.tileSprite(0, 0, 640, 480, 'dirtRoad').setOrigin(0, 0);
         
         // greeen UI background
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x00FF00).setOrigin(0,0);
-
-        // white borders
-        // add.rectangle() has 5 parameters: x coord, y coord, width, height and color (hex)
-        // setOrigin() adjusts the rectangles origins according to the given coord
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF0).setOrigin(0,0);
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x6a040f).setOrigin(0,0);
 
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 0);
+        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 1); // used to be (0.5,0)
 
         // add spaceships (three of them)
         // 6 parameters: current scene (this), x pos, y pos, key name of graphic, frame number, custom parameter (pointValue)
@@ -51,6 +42,18 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'blueCar', 0, 30).setOrigin(0,0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'redCar', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'greenCar', 0, 10).setOrigin(0,0);
+
+
+        // white borders
+        // drawing this after means the "spaceships" will not go over the borders
+        // add.rectangle() has 5 parameters: x coord, y coord, width, height and color (hex)
+        // setOrigin() adjusts the rectangles origins according to the given coord
+        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF0).setOrigin(0,0);
+        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+
+
 
 
         // define keys
