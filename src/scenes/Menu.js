@@ -5,10 +5,17 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
+        // link to the sound I used: https://opengameart.org/content/8bit-menu-select
         // loading the audio, doing this in the menu so that it can be ready to be used in the beginning and not only when you play
-        this.load.audio('sfx_select', './assets/blip_select12.wav');
-        this.load.audio('sfx_explosion', './assets/explosion38.wav');
-        this.load.audio('sfx_rocket', './assets/rocket_shot.wav');
+        this.load.audio('sfx_select', './assets/vgmenuselect.wav');
+
+        // link to the sound I used: https://opengameart.org/content/q009s-weapon-sounds
+        // specifically rlauncher.ogg
+        // I shortened the clip and made it 2x faster than it originally was
+        this.load.audio('sfx_explosion', './assets/car_exploding.wav');
+
+        // link to the sound here: https://opengameart.org/content/rocket-fly-8-bit
+        this.load.audio('sfx_rocket', './assets/final_rocket.wav');
     }
 
     create() {

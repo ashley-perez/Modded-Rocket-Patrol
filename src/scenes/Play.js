@@ -19,7 +19,7 @@ class Play extends Phaser.Scene {
         // now it's a smoke explosion :D
         // load spritesheet for the explosion
         // 3 parameters for spritesheet: key string to identify the asset, URL of its location, frame configuration
-        this.load.spritesheet('explosion', './assets/smoke_explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
     
     // method
@@ -42,6 +42,10 @@ class Play extends Phaser.Scene {
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'blueCar', 0, 30).setOrigin(0,0);
         this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, 'redCar', 0, 20).setOrigin(0,0);
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'greenCar', 0, 10).setOrigin(0,0);
+
+
+        // new "spaceship"
+        
 
 
         // black borders
