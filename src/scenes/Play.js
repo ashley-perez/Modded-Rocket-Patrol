@@ -14,12 +14,13 @@ class Play extends Phaser.Scene {
         this.load.image('redCar', './assets/red_car.png');
         this.load.image('greenCar', './assets/green_car.png');
 
-        this.load.image('rocket', './assets/best_missile.png');
+        this.load.image('rocket', './assets/actuallybestmissile.png');
         this.load.image('dirtRoad', './assets/dirt_road.png');
 
+        // now it's a smoke explosion :D
         // load spritesheet for the explosion
         // 3 parameters for spritesheet: key string to identify the asset, URL of its location, frame configuration
-        this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        this.load.spritesheet('explosion', './assets/smoke_explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
 
     }
     
@@ -30,13 +31,14 @@ class Play extends Phaser.Scene {
         // add.tileSprite() has 5 parameters: x pos, y pos, width, height, key string for which image to use
         this.dirtRoad = this.add.tileSprite(0, 0, 640, 480, 'dirtRoad').setOrigin(0, 0);
         
-        // greeen UI background
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x6a040f).setOrigin(0,0);
+        // UI background
+        // the big bar where the score is
+        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x588157).setOrigin(0,0);
 
         // add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 1); // used to be (0.5,0)
 
-        // add spaceships (three of them)
+        // add "spaceships", they are now cars (three of them)
         // 6 parameters: current scene (this), x pos, y pos, key name of graphic, frame number, custom parameter (pointValue)
         // setOrigin makes sure that the origin of the spaceship sprites are on the upper left of the sprite so the screen wrapping works
         this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, 'blueCar', 0, 30).setOrigin(0,0);
@@ -44,14 +46,14 @@ class Play extends Phaser.Scene {
         this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, 'greenCar', 0, 10).setOrigin(0,0);
 
 
-        // white borders
+        // black borders
         // drawing this after means the "spaceships" will not go over the borders
         // add.rectangle() has 5 parameters: x coord, y coord, width, height and color (hex)
         // setOrigin() adjusts the rectangles origins according to the given coord
-        this.add.rectangle(0, 0, game.config.width, borderUISize, 0xFFFFFF0).setOrigin(0,0);
-        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(0, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
-        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0xFFFFFF).setOrigin(0, 0);
+        this.add.rectangle(0, 0, game.config.width, borderUISize, 0x000000).setOrigin(0,0);
+        this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0x000000).setOrigin(0, 0);
+        this.add.rectangle(0, 0, borderUISize, game.config.height, 0x000000).setOrigin(0, 0);
+        this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0x000000).setOrigin(0, 0);
 
 
 
