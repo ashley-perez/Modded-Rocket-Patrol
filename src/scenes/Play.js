@@ -28,13 +28,28 @@ class Play extends Phaser.Scene {
         // place tile sprite (starfield background)
         // add.tileSprite() has 5 parameters: x pos, y pos, width, height, key string for which image to use
         this.dirtRoad = this.add.tileSprite(0, 0, 640, 480, 'dirtRoad').setOrigin(0, 0);
-        
+
+
+        // define keys
+        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+
+        // new keys for 2nd player
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+
         // UI background
         // the big bar where the score is
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x588157).setOrigin(0,0);
 
         // add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 1); // used to be (0.5,0)
+
+        //this.p2Rocket = new Rocket(this,)
 
         // add "spaceships", they are now cars (three of them)
         // 6 parameters: current scene (this), x pos, y pos, key name of graphic, frame number, custom parameter (pointValue)
@@ -57,12 +72,6 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0x000000).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0x000000).setOrigin(0, 0);
 
-
-        // define keys
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
-        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // animation config
         this.anims.create({

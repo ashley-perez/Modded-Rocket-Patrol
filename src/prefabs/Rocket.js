@@ -10,6 +10,10 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
         // binding the audio object to the scene we passed in as a parameter
         this.sfxRocket = scene.sound.add('sfx_rocket'); // add rocket sfx
+
+        // this.keyOne = firstKey;
+        // this.keyTwo = secondKey;
+
     }
 
     update() {
