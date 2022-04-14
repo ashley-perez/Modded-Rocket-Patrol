@@ -5,7 +5,6 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-
         // loads images/tiles sprites
         // load.image() has 2 parameters: string that will be used to reference this image
         //                                URL for where the image is located
@@ -21,7 +20,6 @@ class Play extends Phaser.Scene {
         // load spritesheet for the explosion
         // 3 parameters for spritesheet: key string to identify the asset, URL of its location, frame configuration
         this.load.spritesheet('explosion', './assets/smoke_explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
-
     }
     
     // method
@@ -54,8 +52,6 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, game.config.height - borderUISize, game.config.width, borderUISize, 0x000000).setOrigin(0, 0);
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0x000000).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0x000000).setOrigin(0, 0);
-
-
 
 
         // define keys
