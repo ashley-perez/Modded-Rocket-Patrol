@@ -37,19 +37,21 @@ class Play extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // new keys for 2nd player
-        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A); // move left with A
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D); // move right with D
         keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
 
         // UI background
         // the big bar where the score is
         this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x588157).setOrigin(0,0);
 
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket').setOrigin(0.5, 1); // used to be (0.5,0)
-
-        //this.p2Rocket = new Rocket(this,)
+        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket',0, keyLEFT, keyRIGHT, keySpace).setOrigin(0.5, 1); // used to be (0.5,0)
+        
+        // second player
+        if (game.settings.twoPlayerMode === true) {
+            this.p2Rocket = new Rocket(this, game.config.width/2 + 5, game.config.height - borderUISize - borderPadding, 'rocket',0, keyA, keyD, keyF).setOrigin(0.5, 1); 
+        }
 
         // add "spaceships", they are now cars (three of them)
         // 6 parameters: current scene (this), x pos, y pos, key name of graphic, frame number, custom parameter (pointValue)
@@ -140,7 +142,14 @@ class Play extends Phaser.Scene {
         this.p1Rocket.update(); // tells Phaser to also update our rocket object when it does its update stuff
 
         // update the spaceships to actually move
-        if(!this.gameOver) {
+        if(!this.gameOver && game.settings.twoPlayerMode) {
+            this.p1Rocket.update(); // update the rocket sprite
+            this.p2Rocket.update();
+            this.ship01.update();   // update the spaceships
+            this.ship02.update();
+            this.ship03.update();
+        }
+        else {
             this.p1Rocket.update(); // update the rocket sprite
             this.ship01.update();   // update the spaceships
             this.ship02.update();

@@ -1,7 +1,7 @@
 // rocket prefab
 class Rocket extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y, texture, frame) {
+    constructor(scene, x, y, texture, frame, firstKey, secondKey, thirdKey) {
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this); // add to existing, displayList, updateList
@@ -11,9 +11,11 @@ class Rocket extends Phaser.GameObjects.Sprite {
         // binding the audio object to the scene we passed in as a parameter
         this.sfxRocket = scene.sound.add('sfx_rocket'); // add rocket sfx
 
-        // this.keyOne = firstKey;
-        // this.keyTwo = secondKey;
+        this.keyOne = firstKey;
+        this.keyTwo = secondKey;
+        this.firingKey = thirdKey;
 
+        
     }
 
     update() {
@@ -21,16 +23,16 @@ class Rocket extends Phaser.GameObjects.Sprite {
         // check if the rocket is firing and if it is NOT  then...
         // the player is able to move left and right
         if(!this.isFiring) {
-            if(keyLEFT.isDown && this.x >= borderUISize + this.width) {
+            if(this.keyOne.isDown && this.x >= borderUISize + this.width) {
                 this.x -= this.moveSpeed;
             } 
-            else if (keyRIGHT.isDown && this.x <= game.config.width - borderUISize - this.width) {
+            else if (this.keyTwo.isDown && this.x <= game.config.width - borderUISize - this.width) {
                 this.x += this.moveSpeed;
             }
         }
 
         // fire button
-        if (Phaser.Input.Keyboard.JustDown(keyF)) { // just down rather than isDown since the player will press the shoot button once and not hold it
+        if (Phaser.Input.Keyboard.JustDown(this.firingKey)) { // just down rather than isDown since the player will press the shoot button once and not hold it
             this.isFiring = true;
             this.sfxRocket.play(); // play the rocket sound!!
         }
