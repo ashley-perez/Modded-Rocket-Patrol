@@ -4,7 +4,7 @@
 
 Originally recreated the retro game Rocket Patrol for CMPM 120 but there has been visual changes and some other stuff.
 
-Tweaked code created by Nathan Altice.
+Tweaked code that was originally created by Nathan Altice. Thanks Nathan!
 
 #### Mods:
 
