@@ -15,6 +15,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
         this.keyTwo = secondKey;
         this.firingKey = thirdKey;
 
+
+        this.score = 0; // initializing score based on rocket (bc of 2 player mode)
         
     }
 

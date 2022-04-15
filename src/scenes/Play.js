@@ -52,6 +52,8 @@ class Play extends Phaser.Scene {
         // second player
         if (game.settings.twoPlayerMode === true) {
             this.p2Rocket = new Rocket(this, game.config.width/2 + 5, game.config.height - borderUISize - borderPadding, 'rocket',0, keyA, keyD, keyF).setOrigin(0.5, 1); 
+            this.p2Rocket.moveSpeed = 3.75;
+            console.log(this.p2Rocket.score);
         }
 
         // add "spaceships", they are now cars (three of them)
@@ -84,7 +86,7 @@ class Play extends Phaser.Scene {
         });
 
         // initialize score
-        this.p1Score = 0;
+        //this.p1Score = 0;
 
         // display score 
         // the config of how we want the score to look like
@@ -162,19 +164,37 @@ class Play extends Phaser.Scene {
         // check for collisions
         if(this.checkCollision(this.p1Rocket, this.ship03)) {
             this.p1Rocket.reset();         // reset the rocket upon collision
-            this.shipExplode(this.ship03); // handles ship exploding animation and resetting the ship location
+            this.shipExplode(this.ship03, this.p1Rocket); // handles ship exploding animation and resetting the ship location
         }
         if(this.checkCollision(this.p1Rocket, this.ship02)) {
             this.p1Rocket.reset();
-            this.shipExplode(this.ship02); 
+            this.shipExplode(this.ship02, this.p1Rocket); 
         }
         if(this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset();
-            this.shipExplode(this.ship01); 
+            this.shipExplode(this.ship01, this.p1Rocket); 
         }
         if (this.checkCollision(this.p1Rocket, this.moneyBag)) {
             this.p1Rocket.reset();
-            this.shipExplode(this.moneyBag);
+            this.shipExplode(this.moneyBag, this.p1Rocket);
+        }
+
+        // check for collisions for the second player
+        if(this.checkCollision(this.p2Rocket, this.ship03) && game.settings.twoPlayerMode) {
+            this.p2Rocket.reset();         // reset the rocket upon collision
+            this.shipExplode(this.ship03, this.p2Rocket); // handles ship exploding animation and resetting the ship location
+        }
+        if(this.checkCollision(this.p2Rocket, this.ship02) && game.settings.twoPlayerMode) {
+            this.p2Rocket.reset();
+            this.shipExplode(this.ship02, this.p2Rocket); 
+        }
+        if(this.checkCollision(this.p2Rocket, this.ship01) && game.settings.twoPlayerMode) {
+            this.p2Rocket.reset();
+            this.shipExplode(this.ship01, this.p2Rocket); 
+        }
+        if (this.checkCollision(this.p2Rocket, this.moneyBag) && game.settings.twoPlayerMode) {
+            this.p2Rocket.reset();
+            this.shipExplode(this.moneyBag, this.p2Rocket);
         }
     }
 
@@ -188,7 +208,7 @@ class Play extends Phaser.Scene {
         }
     }
 
-    shipExplode(ship) {
+    shipExplode(ship, rocket) {
         // temporarily hide ship
         ship.alpha = 0;
     
@@ -201,8 +221,8 @@ class Play extends Phaser.Scene {
             boom.destroy();                    // remove explosion sprite
         });
         // adding the score and repaint
-        this.p1Score += ship.points;        // updates the player score
-        this.scoreLeft.text = this.p1Score; // actually updates the score's text box with the new score value
+        rocket.score += ship.points;        // updates the player score
+        this.scoreLeft.text = rocket.score; // actually updates the score's text box with the new score value
     
         this.sound.play('sfx_explosion'); // to play a quick one off sound
     }
