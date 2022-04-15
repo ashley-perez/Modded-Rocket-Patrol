@@ -12,6 +12,7 @@ class Play extends Phaser.Scene {
         this.load.image('blueCar', './assets/blue_car.png');
         this.load.image('redCar', './assets/red_car.png');
         this.load.image('greenCar', './assets/green_car.png');
+        this.load.image('money', './assets/money_bag.png');
 
         this.load.image('rocket', './assets/actuallybestmissile.png');
         this.load.image('dirtRoad', './assets/dirt_road.png');
@@ -62,7 +63,7 @@ class Play extends Phaser.Scene {
 
 
         // new "spaceship"
-        
+        this.moneyBag = new Money(this, game.config.width + borderUISize*2.5, borderUISize*3.5, 'money',0,50).setOrigin(0,0);
 
 
         // black borders
@@ -148,12 +149,14 @@ class Play extends Phaser.Scene {
             this.ship01.update();   // update the spaceships
             this.ship02.update();
             this.ship03.update();
+            this.moneyBag.update();
         }
-        else {
+        else if (!this.gameOver)  {
             this.p1Rocket.update(); // update the rocket sprite
             this.ship01.update();   // update the spaceships
             this.ship02.update();
             this.ship03.update();
+            this.moneyBag.update();
         }
 
         // check for collisions
@@ -168,6 +171,10 @@ class Play extends Phaser.Scene {
         if(this.checkCollision(this.p1Rocket, this.ship01)) {
             this.p1Rocket.reset();
             this.shipExplode(this.ship01); 
+        }
+        if (this.checkCollision(this.p1Rocket, this.moneyBag)) {
+            this.p1Rocket.reset();
+            this.shipExplode(this.moneyBag);
         }
     }
 

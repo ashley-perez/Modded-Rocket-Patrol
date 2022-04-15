@@ -16,6 +16,8 @@ class Menu extends Phaser.Scene {
 
         // link to the sound here: https://opengameart.org/content/rocket-fly-8-bit
         this.load.audio('sfx_rocket', './assets/final_rocket.wav');
+
+        this.load.audio('music', './assets/bg_music.wav');
     }
 
     create() {
@@ -51,9 +53,12 @@ class Menu extends Phaser.Scene {
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyTWO = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+
+       this.sound.play('music');
     }
 
     update() {
+
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             // easy mode
             game.settings = {
