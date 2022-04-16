@@ -15,6 +15,7 @@ class Play extends Phaser.Scene {
         this.load.image('money', './assets/money_bag.png');
 
         this.load.image('rocket', './assets/actuallybestmissile.png');
+        this.load.image('rocketTwo', './assets/yellow_rocket.png');
         this.load.image('dirtRoad', './assets/dirt_road.png');
 
         // now it's a smoke explosion :D
@@ -51,7 +52,7 @@ class Play extends Phaser.Scene {
         
         // second player
         if (game.settings.twoPlayerMode === true) {
-            this.p2Rocket = new Rocket(this, game.config.width/2 + 5, game.config.height - borderUISize - borderPadding, 'rocket',0, keyA, keyD, keyF).setOrigin(0.5, 1); 
+            this.p2Rocket = new Rocket(this, game.config.width/2 + 5, game.config.height - borderUISize - borderPadding, 'rocketTwo',0, keyA, keyD, keyF).setOrigin(0.5, 1); 
             this.p2Rocket.moveSpeed = 3.75;
             console.log(this.p2Rocket.score);
         }
@@ -103,7 +104,12 @@ class Play extends Phaser.Scene {
             fixedWidth: 100
         }
         // actually adds the score and makes it visible
-        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+        this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Rocket.score, scoreConfig);
+
+        // P2 SCORE
+        if (game.settings.twoPlayerMode) {
+            this.scoreTwo = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2.5, this.p2Rocket.score, scoreConfig);
+        }
 
         // GAME OVER flag
         this.gameOver = false; // binding the game over property to the scene and setting it to false
@@ -179,23 +185,29 @@ class Play extends Phaser.Scene {
             this.shipExplode(this.moneyBag, this.p1Rocket);
         }
 
-        // check for collisions for the second player
-        if(this.checkCollision(this.p2Rocket, this.ship03) && game.settings.twoPlayerMode) {
-            this.p2Rocket.reset();         // reset the rocket upon collision
-            this.shipExplode(this.ship03, this.p2Rocket); // handles ship exploding animation and resetting the ship location
+        // check for 2nd player rocket collision
+        if (game.settings.twoPlayerMode) {
+            // check for collisions for the second player
+            if(this.checkCollision(this.p2Rocket, this.ship03) && game.settings.twoPlayerMode) {
+                this.p2Rocket.reset();         // reset the rocket upon collision
+                this.shipExplode(this.ship03, this.p2Rocket); // handles ship exploding animation and resetting the ship location
+            }
+            else if(this.checkCollision(this.p2Rocket, this.ship02) && game.settings.twoPlayerMode) {
+                this.p2Rocket.reset();
+                this.shipExplode(this.ship02, this.p2Rocket); 
+            }
+            else if(this.checkCollision(this.p2Rocket, this.ship01) && game.settings.twoPlayerMode) {
+                this.p2Rocket.reset();
+                this.shipExplode(this.ship01, this.p2Rocket); 
+            }
+            else if (this.checkCollision(this.p2Rocket, this.moneyBag) && game.settings.twoPlayerMode) {
+                this.p2Rocket.reset();
+                this.shipExplode(this.moneyBag, this.p2Rocket);
+            }
         }
-        if(this.checkCollision(this.p2Rocket, this.ship02) && game.settings.twoPlayerMode) {
-            this.p2Rocket.reset();
-            this.shipExplode(this.ship02, this.p2Rocket); 
-        }
-        if(this.checkCollision(this.p2Rocket, this.ship01) && game.settings.twoPlayerMode) {
-            this.p2Rocket.reset();
-            this.shipExplode(this.ship01, this.p2Rocket); 
-        }
-        if (this.checkCollision(this.p2Rocket, this.moneyBag) && game.settings.twoPlayerMode) {
-            this.p2Rocket.reset();
-            this.shipExplode(this.moneyBag, this.p2Rocket);
-        }
+
+       
+       
     }
 
     checkCollision(rocket, ship) {

@@ -4,7 +4,7 @@ class Money extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         this.points = pointValue;
-        this.moveSpeed = 4.5;
+        this.moveSpeed = 4;
     }
 
     update() {
