@@ -1,7 +1,7 @@
 // rocket prefab
 class Rocket extends Phaser.GameObjects.Sprite {
 
-    constructor(scene, x, y, texture, frame, firstKey, secondKey, thirdKey) {
+    constructor(scene, x, y, texture, frame, firstKey, secondKey, thirdKey, number) {
         super(scene, x, y, texture, frame);
 
         scene.add.existing(this); // add to existing, displayList, updateList
@@ -14,6 +14,8 @@ class Rocket extends Phaser.GameObjects.Sprite {
         this.keyOne = firstKey;
         this.keyTwo = secondKey;
         this.firingKey = thirdKey;
+
+        this.rocketNum = number;
 
 
         this.score = 0; // initializing score based on rocket (bc of 2 player mode)

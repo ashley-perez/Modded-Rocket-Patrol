@@ -45,16 +45,16 @@ class Play extends Phaser.Scene {
 
         // UI background
         // the big bar where the score is
-        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0x588157).setOrigin(0,0);
+        this.add.rectangle(0, borderUISize + borderPadding, game.config.width, borderUISize * 2, 0xd90429).setOrigin(0,0);
 
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket',0, keyLEFT, keyRIGHT, keySpace).setOrigin(0.5, 1); // used to be (0.5,0)
+        this.p1Rocket = new Rocket(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'rocket',0, keyLEFT, keyRIGHT, keySpace, 1).setOrigin(0.5, 1); // used to be (0.5,0)
         
         // second player
         if (game.settings.twoPlayerMode === true) {
-            this.p2Rocket = new Rocket(this, game.config.width/2 + 5, game.config.height - borderUISize - borderPadding, 'rocketTwo',0, keyA, keyD, keyF).setOrigin(0.5, 1); 
+            this.p2Rocket = new Rocket(this, game.config.width/2 + 5, game.config.height - borderUISize - borderPadding, 'rocketTwo',0, keyA, keyD, keyF, 2).setOrigin(0.5, 1); 
             this.p2Rocket.moveSpeed = 3.75;
-            console.log(this.p2Rocket.score);
+            //console.log(this.p2Rocket.score);
         }
 
         // add "spaceships", they are now cars (three of them)
@@ -78,7 +78,6 @@ class Play extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0x000000).setOrigin(0, 0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0x000000).setOrigin(0, 0);
 
-
         // animation config
         this.anims.create({
             key: 'explode',
@@ -86,16 +85,13 @@ class Play extends Phaser.Scene {
             frameRate: 30
         });
 
-        // initialize score
-        //this.p1Score = 0;
-
         // display score 
         // the config of how we want the score to look like
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: '#F3B141', // background color for the score box
-            color: '#4a4e69', // background color for the ui box
+            backgroundColor: '#2d6a4f', // background color for the score box
+            color: '#FFFFFF', // color for the text
             align: 'right',
             padding: {
                 top: 5,
@@ -108,7 +104,21 @@ class Play extends Phaser.Scene {
 
         // P2 SCORE
         if (game.settings.twoPlayerMode) {
-            this.scoreTwo = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2.5, this.p2Rocket.score, scoreConfig);
+            let scoreConfigTwo = {
+                fontFamily: 'Courier',
+                fontSize: '28px',
+                backgroundColor: '#ffd819', // background color for the score box
+                color: '#000000', // text color
+                align: 'right',
+                padding: {
+                    top: 5,
+                    bottom: 5,
+                },
+                fixedWidth: 100
+            }
+
+
+            this.scoreTwo = this.add.text(borderUISize + borderPadding*13, borderUISize + borderPadding*2, this.p2Rocket.score, scoreConfigTwo);
         }
 
         // GAME OVER flag
@@ -186,21 +196,23 @@ class Play extends Phaser.Scene {
         }
 
         // check for 2nd player rocket collision
+        // we want to only do this if the two player mode is selected or else this.p2Rocket will be undefined
+        // since p2Rocket is only created if that option is chosen in the menu
         if (game.settings.twoPlayerMode) {
             // check for collisions for the second player
-            if(this.checkCollision(this.p2Rocket, this.ship03) && game.settings.twoPlayerMode) {
+            if(this.checkCollision(this.p2Rocket, this.ship03)) {
                 this.p2Rocket.reset();         // reset the rocket upon collision
                 this.shipExplode(this.ship03, this.p2Rocket); // handles ship exploding animation and resetting the ship location
             }
-            else if(this.checkCollision(this.p2Rocket, this.ship02) && game.settings.twoPlayerMode) {
+            else if(this.checkCollision(this.p2Rocket, this.ship02)) {
                 this.p2Rocket.reset();
                 this.shipExplode(this.ship02, this.p2Rocket); 
             }
-            else if(this.checkCollision(this.p2Rocket, this.ship01) && game.settings.twoPlayerMode) {
+            else if(this.checkCollision(this.p2Rocket, this.ship01)) {
                 this.p2Rocket.reset();
                 this.shipExplode(this.ship01, this.p2Rocket); 
             }
-            else if (this.checkCollision(this.p2Rocket, this.moneyBag) && game.settings.twoPlayerMode) {
+            else if (this.checkCollision(this.p2Rocket, this.moneyBag)) {
                 this.p2Rocket.reset();
                 this.shipExplode(this.moneyBag, this.p2Rocket);
             }
@@ -234,7 +246,15 @@ class Play extends Phaser.Scene {
         });
         // adding the score and repaint
         rocket.score += ship.points;        // updates the player score
-        this.scoreLeft.text = rocket.score; // actually updates the score's text box with the new score value
+        //this.scoreLeft.text = rocket.score; // actually updates the score's text box with the new score value
+
+        // update the respective text boxes!!!! 
+        if (game.settings.twoPlayerMode && rocket.rocketNum === 2) {
+            this.scoreTwo.text = rocket.score;
+        }
+        else {
+            this.scoreLeft.text = rocket.score;
+        }
     
         this.sound.play('sfx_explosion'); // to play a quick one off sound
     }
