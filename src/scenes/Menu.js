@@ -17,8 +17,10 @@ class Menu extends Phaser.Scene {
         // link to the sound here: https://opengameart.org/content/rocket-fly-8-bit
         this.load.audio('sfx_rocket', './assets/final_rocket.wav');
 
+        // link to the music I used: https://opengameart.org/content/5-chiptunes-action
         this.load.audio('music', './assets/bg_music.wav');
 
+        // made this myself
         this.load.image('background', './assets/menu.png');
     }
 

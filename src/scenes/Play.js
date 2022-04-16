@@ -12,7 +12,7 @@ class Play extends Phaser.Scene {
         this.load.image('blueCar', './assets/blue_car.png');
         this.load.image('redCar', './assets/red_car.png');
         this.load.image('greenCar', './assets/green_car.png');
-        this.load.image('money', './assets/money_bag.png');
+        this.load.image('money', './assets/best_money.png');
 
         this.load.image('rocket', './assets/actuallybestmissile.png');
         this.load.image('rocketTwo', './assets/yellow_rocket.png');
@@ -66,7 +66,7 @@ class Play extends Phaser.Scene {
 
 
         // new "spaceship"
-        this.moneyBag = new Money(this, game.config.width + borderUISize*2.5, borderUISize*3.5, 'money',0,50).setOrigin(0,0);
+        this.moneyBag = new Money(this, borderUISize + borderPadding, borderUISize*5, 'money',0,65).setOrigin(0,0);
 
 
         // black borders
@@ -143,6 +143,7 @@ class Play extends Phaser.Scene {
         // when the game is over stop updating the scrolling background
         if (this.gameOver) {
             this.dirtRoad.tilePositionX = 0;
+            //this.playSong.stop();
         }
 
         // check key input for restart 

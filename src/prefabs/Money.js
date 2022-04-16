@@ -4,21 +4,22 @@ class Money extends Phaser.GameObjects.Sprite {
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         this.points = pointValue;
-        this.moveSpeed = 4;
+        this.moveSpeed = 4.6;
     }
 
     update() {
-        // move spaceship left
-        this.x -= this.moveSpeed;
+        //move spaceship left
+        this.x += this.moveSpeed;
 
-        // wrap around from left edge to right edge
-        if (this.x <= 0 - this.width) {
+        // // wrap around from left edge to right edge
+        if (this.x >= game.config.width) {
             this.reset();
         }
     }
 
     // position reset
     reset() {
-        this.x = game.config.width;
+        this.x = borderPadding+ borderUISize;
+        //this.x = game.config.width;
     }
 }
