@@ -9,5 +9,6 @@ Tweaked code that was originally created by Nathan Altice. Thanks Nathan!
 #### Mods:
 
 1. Simultaneous 2 player mode
-2. Changed assets for a different theme!
-3. Added background music
+2. New "spaceship" type that is faster/smaller/worth more points
+3. Changed assets for a different theme!
+4. Added background music

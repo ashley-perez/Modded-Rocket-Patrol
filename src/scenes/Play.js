@@ -66,7 +66,7 @@ class Play extends Phaser.Scene {
 
 
         // new "spaceship"
-        this.moneyBag = new Money(this, borderUISize + borderPadding, borderUISize*5, 'money',0,65).setOrigin(0,0);
+        this.moneyBag = new Money(this, borderUISize + borderPadding, borderUISize*5, 'money',0,70).setOrigin(0,0);
 
 
         // black borders
